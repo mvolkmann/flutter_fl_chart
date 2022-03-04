@@ -29,8 +29,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final barGroups =
-        yValues.mapIndexed((index, y) => getBar(x: index, y: y)).toList();
+    final barGroups = yValues
+        .mapIndexed(
+          (index, y) => getBar(x: index, y: y),
+        )
+        .toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -81,7 +84,9 @@ class _HomeState extends State<Home> {
     return BarChartGroupData(x: x, barRods: [
       BarChartRodData(
         //borderRadius: BorderRadius.zero,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(width / 2)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(width / 2),
+        ),
         colors: [Colors.blue],
         width: width,
         y: y,
