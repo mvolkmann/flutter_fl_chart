@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +24,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final yValues = <double>[10, 9, 4, 2, 13, 17, 19, 21];
   @override
   Widget build(BuildContext context) {
+    final barGroups =
+        yValues.mapIndexed((index, y) => getBar(x: index + 1, y: y)).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -36,6 +40,12 @@ class _HomeState extends State<Home> {
             const Text('My Chart'),
             BarChart(
               BarChartData(
+                axisTitleData: FlAxisTitleData(
+                  topTitle: getAxisTitle('top', 10),
+                  rightTitle: getAxisTitle('right'),
+                  bottomTitle: getAxisTitle('bottom', 20),
+                  leftTitle: getAxisTitle('left'),
+                ),
                 borderData: FlBorderData(
                   border: const Border(
                     top: BorderSide.none,
@@ -44,16 +54,7 @@ class _HomeState extends State<Home> {
                     bottom: BorderSide(width: 1), // x-axis
                   ),
                 ),
-                barGroups: [
-                  getBar(x: 1, y: 10),
-                  getBar(x: 2, y: 9),
-                  getBar(x: 3, y: 4),
-                  getBar(x: 4, y: 2),
-                  getBar(x: 5, y: 13),
-                  getBar(x: 6, y: 17),
-                  getBar(x: 7, y: 19),
-                  getBar(x: 8, y: 21),
-                ],
+                barGroups: barGroups,
               ),
             ).padding(20).expanded,
           ],
@@ -66,5 +67,9 @@ class _HomeState extends State<Home> {
     return BarChartGroupData(x: x, barRods: [
       BarChartRodData(y: y, width: 15, colors: [Colors.amber]),
     ]);
+  }
+
+  AxisTitle getAxisTitle(String title, [double margin = 0.0]) {
+    return AxisTitle(showTitle: true, titleText: title, margin: margin);
   }
 }
