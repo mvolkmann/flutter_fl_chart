@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
             BarChart(
               BarChartData(
                 axisTitleData: FlAxisTitleData(
-                  bottomTitle: getAxisTitle('Person', 5),
+                  bottomTitle: getAxisTitle('Person', 30),
                   leftTitle: getAxisTitle('Score'),
                 ),
                 borderData: FlBorderData(
@@ -61,6 +61,7 @@ class _HomeState extends State<Home> {
                   bottomTitles: SideTitles(
                     showTitles: true,
                     getTitles: (index) => xTitles[index.toInt()],
+                    rotateAngle: -45,
                   ),
                   leftTitles: SideTitles(
                     showTitles: true,
@@ -71,8 +72,6 @@ class _HomeState extends State<Home> {
                   topTitles: SideTitles(showTitles: false),
                   rightTitles: SideTitles(showTitles: false),
                 ),
-                //TODO: How can you make the bars rectangles instead of ovals?
-                //TODO: How can you rotate the x-axis labels 90 degrees?
               ),
             ).padding(20).expanded,
           ],
@@ -83,11 +82,21 @@ class _HomeState extends State<Home> {
 
   BarChartGroupData getBar({required int x, required double y}) {
     return BarChartGroupData(x: x, barRods: [
-      BarChartRodData(y: y, width: 15, colors: [Colors.blue]),
+      BarChartRodData(
+        borderRadius: BorderRadius.zero,
+        colors: [Colors.blue],
+        width: 15,
+        y: y,
+      ),
     ]);
   }
 
   AxisTitle getAxisTitle(String title, [double margin = 0.0]) {
-    return AxisTitle(showTitle: true, titleText: title, margin: margin);
+    return AxisTitle(
+      margin: margin,
+      showTitle: true,
+      textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      titleText: title,
+    );
   }
 }
