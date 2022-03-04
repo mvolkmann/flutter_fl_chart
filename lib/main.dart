@@ -81,11 +81,13 @@ class _HomeState extends State<Home> {
   }
 
   BarChartGroupData getBar({required int x, required double y}) {
+    const width = 30.0;
     return BarChartGroupData(x: x, barRods: [
       BarChartRodData(
-        borderRadius: BorderRadius.zero,
+        //borderRadius: BorderRadius.zero,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(width / 2)),
         colors: [Colors.blue],
-        width: 15,
+        width: width,
         y: y,
       ),
     ]);
