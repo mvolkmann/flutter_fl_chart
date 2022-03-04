@@ -24,11 +24,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final yValues = <double>[10, 9, 4, 2, 13, 17, 19, 21];
+  final xTitles = ['Mark', 'Tami', 'Amanda', 'Jeremy'];
+  final yValues = <double>[6, 5, 10, 8];
+
   @override
   Widget build(BuildContext context) {
     final barGroups =
-        yValues.mapIndexed((index, y) => getBar(x: index + 1, y: y)).toList();
+        yValues.mapIndexed((index, y) => getBar(x: index, y: y)).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -41,10 +43,8 @@ class _HomeState extends State<Home> {
             BarChart(
               BarChartData(
                 axisTitleData: FlAxisTitleData(
-                  topTitle: getAxisTitle('top', 10),
-                  rightTitle: getAxisTitle('right'),
-                  bottomTitle: getAxisTitle('bottom', 20),
-                  leftTitle: getAxisTitle('left'),
+                  bottomTitle: getAxisTitle('Person', 5),
+                  leftTitle: getAxisTitle('Score'),
                 ),
                 borderData: FlBorderData(
                   border: const Border(
@@ -55,6 +55,24 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 barGroups: barGroups,
+                // This hides the faint, dashed grid lines.
+                gridData: FlGridData(show: false),
+                titlesData: FlTitlesData(
+                  bottomTitles: SideTitles(
+                    showTitles: true,
+                    getTitles: (index) => xTitles[index.toInt()],
+                  ),
+                  leftTitles: SideTitles(
+                    showTitles: true,
+                    // Only show titles with no decimal places.
+                    getTitles: (value) =>
+                        value % 1 == 0 ? '${value.toInt()}' : '',
+                  ),
+                  topTitles: SideTitles(showTitles: false),
+                  rightTitles: SideTitles(showTitles: false),
+                ),
+                //TODO: How can you make the bars rectangles instead of ovals?
+                //TODO: How can you rotate the x-axis labels 90 degrees?
               ),
             ).padding(20).expanded,
           ],
@@ -65,7 +83,7 @@ class _HomeState extends State<Home> {
 
   BarChartGroupData getBar({required int x, required double y}) {
     return BarChartGroupData(x: x, barRods: [
-      BarChartRodData(y: y, width: 15, colors: [Colors.amber]),
+      BarChartRodData(y: y, width: 15, colors: [Colors.blue]),
     ]);
   }
 
