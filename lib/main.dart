@@ -25,7 +25,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final xTitles = ['Mark', 'Tami', 'Amanda', 'Jeremy'];
-  final yValues = <double>[6, 5, 10, 8];
+  final yValues = <double>[6, 7, 10, 8];
 
   @override
   Widget build(BuildContext context) {
@@ -35,47 +35,43 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('My Chart'),
-            BarChart(
-              BarChartData(
-                axisTitleData: FlAxisTitleData(
-                  bottomTitle: getAxisTitle('Person', 30),
-                  leftTitle: getAxisTitle('Score'),
-                ),
-                borderData: FlBorderData(
-                  border: const Border(
-                    top: BorderSide.none,
-                    right: BorderSide.none,
-                    left: BorderSide(width: 1), // y-axis
-                    bottom: BorderSide(width: 1), // x-axis
-                  ),
-                ),
-                barGroups: barGroups,
-                // This hides the faint, dashed grid lines.
-                gridData: FlGridData(show: false),
-                titlesData: FlTitlesData(
-                  bottomTitles: SideTitles(
-                    showTitles: true,
-                    getTitles: (index) => xTitles[index.toInt()],
-                    rotateAngle: -45,
-                  ),
-                  leftTitles: SideTitles(
-                    showTitles: true,
-                    // Only show titles with no decimal places.
-                    getTitles: (value) =>
-                        value % 1 == 0 ? '${value.toInt()}' : '',
-                  ),
-                  topTitles: SideTitles(showTitles: false),
-                  rightTitles: SideTitles(showTitles: false),
+      body: Column(
+        children: [
+          BarChart(
+            BarChartData(
+              axisTitleData: FlAxisTitleData(
+                bottomTitle: getAxisTitle('Person', 30),
+                leftTitle: getAxisTitle('Score'),
+              ),
+              borderData: FlBorderData(
+                border: const Border(
+                  top: BorderSide.none,
+                  right: BorderSide.none,
+                  left: BorderSide(width: 1), // y-axis
+                  bottom: BorderSide(width: 1), // x-axis
                 ),
               ),
-            ).padding(20).expanded,
-          ],
-        ),
+              barGroups: barGroups,
+              // This hides the faint, dashed grid lines.
+              gridData: FlGridData(show: false),
+              titlesData: FlTitlesData(
+                bottomTitles: SideTitles(
+                  showTitles: true,
+                  getTitles: (index) => xTitles[index.toInt()],
+                  rotateAngle: -45,
+                ),
+                leftTitles: SideTitles(
+                  showTitles: true,
+                  // Only show titles with no decimal places.
+                  getTitles: (value) =>
+                      value % 1 == 0 ? '${value.toInt()}' : '',
+                ),
+                topTitles: SideTitles(showTitles: false),
+                rightTitles: SideTitles(showTitles: false),
+              ),
+            ),
+          ).padding(20).expanded,
+        ],
       ),
     );
   }
